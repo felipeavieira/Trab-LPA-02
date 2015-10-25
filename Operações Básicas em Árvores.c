@@ -7,6 +7,8 @@ struct arvore * esq;
 struct arvore * dir;
 };
 
+struct arvore * root = NULL;
+
 void adicionar (struct arvore * tree,int a)
 {
     struct arvore * ramo = tree;
@@ -23,10 +25,10 @@ void adicionar (struct arvore * tree,int a)
             else
                 ramo=ramo->esq;
         }
-        if (a>=galho->chave)
-            galho->dir=novo;
-        else
-            galho->esq=novo;
+    if (a>=galho->chave)
+        galho->dir=novo;
+    else
+        galho->esq=novo;
 
 }
 int busca (struct arvore * tree, int a)
@@ -72,12 +74,15 @@ void remover (struct arvore * tree, int a)
         m=ramo->esq;
     if(galho==NULL)
     {
-        tree=m;
+        root=m;
     }
-    if(galho->chave<a)
-        galho->dir=m;
     else
-        galho->esq=m;
+    {
+        if(galho->chave<a)
+            galho->dir=m;
+        else
+            galho->esq=m;
+    }
     free(ramo);
 }
 
@@ -118,7 +123,7 @@ void print_con (struct arvore * tree)
     printf("]");
 }
 
-int menu (struct arvore * root)
+int menu (struct arvore * raiz)
 {
     int i,j,n,a;
     printf("\nO que deseja fazer agora? Digite o numero com sua opcao:\n");
@@ -134,7 +139,7 @@ int menu (struct arvore * root)
                 for (j=0;j<n;j++)
                 {
                     scanf("%d",&a);
-                    adicionar (root,a);
+                    adicionar (raiz,a);
                 }
                 printf("Itens adicionados!\n");
                 return 0;
@@ -143,7 +148,7 @@ int menu (struct arvore * root)
             {
                 printf("Qual numero voce deseja remover? ");
                 scanf("%d",&a);
-                remover(root,a);
+                remover(raiz,a);
                 printf("Item removido!\n");
                 return 0;
             }
@@ -151,7 +156,7 @@ int menu (struct arvore * root)
             {
                 printf("Qual numero deseja buscar? ");
                 scanf("%d",&a);
-                if (busca(root,a)==1)
+                if (busca(raiz,a)==1)
                     printf("Numero encontrado! Ele ja esta na arvore.\n");
                 else
                     printf("Numero nao encontrado.\n");
@@ -170,25 +175,25 @@ int menu (struct arvore * root)
                {
                    case 1:
                        {
-                           print_in(root);
+                           print_in(raiz);
                            printf("\n");
                            return 0;
                        }
                    case 2:
                        {
-                           print_pre(root);
+                           print_pre(raiz);
                            printf("\n");
                            return 0;
                        }
                    case 3:
                        {
-                           print_pos(root);
+                           print_pos(raiz);
                            printf("\n");
                            return 0;
                        }
                    case 4:
                        {
-                           print_con(root);
+                           print_con(raiz);
                            printf("\n");
                            return 0;
                        }
@@ -206,7 +211,6 @@ int menu (struct arvore * root)
 
 int main ()
 {
-    struct arvore * root = NULL;
     int n,i,a;
     printf("Inicializando arvore. Quantos valores deseja entrar? ");
     scanf("%d",&n);
