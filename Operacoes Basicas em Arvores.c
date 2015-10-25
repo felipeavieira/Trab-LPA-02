@@ -141,6 +141,11 @@ int menu ()
             {
                 printf("Quantos numeros pretende entrar? ");
                 scanf("%d",&n);
+                while (n<1)
+                {
+                    printf("Entre com pelo menos um numero. Quantos valores deseja entrar? ");
+                    scanf("%d",&n);
+                }
                 printf("Entre com os numeros:\n");
                 for (j=0;j<n;j++)
                 {
