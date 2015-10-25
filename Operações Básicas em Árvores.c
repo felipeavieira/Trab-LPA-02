@@ -17,6 +17,11 @@ void adicionar (struct arvore * tree,int a)
     novo->chave=a;
     novo->esq=NULL;
     novo->dir=NULL;
+    if (root==NULL)
+        {
+            root=novo;
+            return;
+        }
     while (ramo!=NULL)
         {
             galho=ramo;
@@ -59,8 +64,6 @@ void remover (struct arvore * tree, int a)
         else
             ramo=ramo->esq;
     }
-    if (ramo==NULL)//Quando a chave nao for encontrada
-            return;
     struct arvore *n = ramo->dir;
     while (n!=NULL&&n->esq!=NULL)
         n=n->esq;
@@ -139,7 +142,7 @@ int menu (struct arvore * raiz)
                 for (j=0;j<n;j++)
                 {
                     scanf("%d",&a);
-                    adicionar (raiz,a);
+                    adicionar (root,a);
                 }
                 printf("Itens adicionados!\n");
                 return 0;
@@ -148,9 +151,17 @@ int menu (struct arvore * raiz)
             {
                 printf("Qual numero voce deseja remover? ");
                 scanf("%d",&a);
-                remover(raiz,a);
-                printf("Item removido!\n");
-                return 0;
+                if (busca(raiz,a)==1)
+                {
+                    remover(raiz,a);
+                    printf("Item removido!\n");
+                    return 0;
+                }
+                else
+                {
+                    printf("O item nao pode ser removido pois nao se encontra na arvore.\n");
+                    return 0;
+                }
             }
         case 3:
             {
@@ -209,11 +220,25 @@ int menu (struct arvore * raiz)
     }
 }
 
+free_memory (struct arvore * raiz)
+{
+    if (raiz==NULL)
+        return;
+    free_memory(raiz->esq);
+    free_memory(raiz->dir);
+    free(raiz);
+}
+
 int main ()
 {
     int n,i,a;
     printf("Inicializando arvore. Quantos valores deseja entrar? ");
     scanf("%d",&n);
+    while (n<1)
+    {
+        printf("Entre com pelo menos um numero. Quantos valores deseja entrar? ");
+        scanf("%d",&n);
+    }
     printf("Entre com os numeros:\n");
     scanf("%d",&a);
     root=(struct arvore*)calloc(1,sizeof(struct arvore));
@@ -228,4 +253,5 @@ int main ()
     {
         i=menu(root);
     }
+    free_memory(root);
 }
