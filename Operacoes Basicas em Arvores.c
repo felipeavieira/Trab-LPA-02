@@ -119,7 +119,10 @@ void print_in (struct arvore * tree)
 void print_con (struct arvore * tree)
 {
     if (tree==NULL)
+    {
+        printf("[]");
         return;
+    }
     printf("[%d",tree->chave);
     print_con (tree->esq);
     print_con (tree->dir);
