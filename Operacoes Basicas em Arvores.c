@@ -9,9 +9,9 @@ struct arvore * dir;
 
 struct arvore * root = NULL;
 
-void adicionar (struct arvore * tree,int a)
+void adicionar (int a)
 {
-    struct arvore * ramo = tree;
+    struct arvore * ramo = root;
     struct arvore * galho = NULL;
     struct arvore * novo = (struct arvore *)calloc(1,sizeof(struct arvore));
     novo->chave=a;
@@ -34,8 +34,8 @@ void adicionar (struct arvore * tree,int a)
         galho->dir=novo;
     else
         galho->esq=novo;
-
 }
+
 int busca (struct arvore * tree, int a)
 {
     struct arvore * galho = tree;
@@ -52,10 +52,10 @@ int busca (struct arvore * tree, int a)
     }
 }
 
-void remover (struct arvore * tree, int a)
+void remover (int a)
 {
     struct arvore * galho = NULL;
-    struct arvore * ramo = tree;
+    struct arvore * ramo = root;
     while (ramo->chave!=a&&ramo!=NULL)
     {
         galho=ramo;
@@ -126,7 +126,7 @@ void print_con (struct arvore * tree)
     printf("]");
 }
 
-int menu (struct arvore * raiz)
+int menu ()
 {
     int i,j,n,a;
     printf("\nO que deseja fazer agora? Digite o numero com sua opcao:\n");
@@ -142,7 +142,7 @@ int menu (struct arvore * raiz)
                 for (j=0;j<n;j++)
                 {
                     scanf("%d",&a);
-                    adicionar (root,a);
+                    adicionar (a);
                 }
                 printf("Itens adicionados!\n");
                 return 0;
@@ -151,9 +151,9 @@ int menu (struct arvore * raiz)
             {
                 printf("Qual numero voce deseja remover? ");
                 scanf("%d",&a);
-                if (busca(raiz,a)==1)
+                if (busca(root,a)==1)
                 {
-                    remover(raiz,a);
+                    remover(a);
                     printf("Item removido!\n");
                     return 0;
                 }
@@ -167,7 +167,7 @@ int menu (struct arvore * raiz)
             {
                 printf("Qual numero deseja buscar? ");
                 scanf("%d",&a);
-                if (busca(raiz,a)==1)
+                if (busca(root,a)==1)
                     printf("Numero encontrado! Ele ja esta na arvore.\n");
                 else
                     printf("Numero nao encontrado.\n");
@@ -177,42 +177,42 @@ int menu (struct arvore * raiz)
             {
                printf("Como voce deseja imprimi-los?\n1. Em ordem.\n2. Pre-ordem.\n3. Pos-ordem.\n4. Com conchetes.\nOpcao: ");
                scanf("%d",&j);
-               if (j>4||j<1)//tive um problema com defaut duplicado, por isso este teste logico
-               {
-                    printf("Ocorreu um erro. Tente novamente.\n");
-                    return 0;
-               }
                switch (j)
                {
                    case 1:
                        {
-                           print_in(raiz);
+                           print_in(root);
                            printf("\n");
                            return 0;
                        }
                    case 2:
                        {
-                           print_pre(raiz);
+                           print_pre(root);
                            printf("\n");
                            return 0;
                        }
                    case 3:
                        {
-                           print_pos(raiz);
+                           print_pos(root);
                            printf("\n");
                            return 0;
                        }
                    case 4:
                        {
-                           print_con(raiz);
+                           print_con(root);
                            printf("\n");
+                           return 0;
+                       }
+                   default:
+                       {
+                           printf("Ocorreu um erro. Tente novamente.\n");
                            return 0;
                        }
                }
             }
         case 5:
             return 1;
-        defaut:
+        default:
             {
             printf("Ocorreu um erro. Tente novamente.\n");
             return 0;
@@ -240,18 +240,15 @@ int main ()
         scanf("%d",&n);
     }
     printf("Entre com os numeros:\n");
-    scanf("%d",&a);
-    root=(struct arvore*)calloc(1,sizeof(struct arvore));
-    root->chave=a;
-    for (i=0;i<n-1;i++)
+    for (i=0;i<n;i++)
     {
         scanf("%d",&a);
-        adicionar (root,a);
+        adicionar (a);
     }
     i=0;
     while (i!=1)
     {
-        i=menu(root);
+        i=menu();
     }
     free_memory(root);
 }
