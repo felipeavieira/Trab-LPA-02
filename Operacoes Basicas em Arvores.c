@@ -116,7 +116,7 @@ void print_in (struct arvore * tree)
     print_in(tree->dir);
 }
 
-void print_con (struct arvore * tree)
+void print_col (struct arvore * tree)
 {
     if (tree==NULL)
     {
@@ -124,8 +124,8 @@ void print_con (struct arvore * tree)
         return;
     }
     printf("[%d",tree->chave);
-    print_con (tree->esq);
-    print_con (tree->dir);
+    print_col (tree->esq);
+    print_col (tree->dir);
     printf("]");
 }
 
@@ -183,7 +183,7 @@ int menu ()
             }
         case 4:
             {
-               printf("Como voce deseja imprimi-los?\n1. Em ordem.\n2. Pre-ordem.\n3. Pos-ordem.\n4. Com conchetes.\nOpcao: ");
+               printf("Como voce deseja imprimi-los?\n1. Em ordem.\n2. Pre-ordem.\n3. Pos-ordem.\n4. Com colchetes.\nOpcao: ");
                scanf("%d",&j);
                switch (j)
                {
@@ -207,7 +207,7 @@ int menu ()
                        }
                    case 4:
                        {
-                           print_con(root);
+                           print_col(root);
                            printf("\n");
                            return 0;
                        }
@@ -255,8 +255,6 @@ int main ()
     }
     i=0;
     while (i!=1)
-    {
         i=menu();
-    }
     free_memory(root);
 }
