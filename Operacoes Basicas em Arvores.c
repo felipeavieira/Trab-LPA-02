@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct arvore {
+struct arvore
+{
 int chave;
 struct arvore * esq;
 struct arvore * dir;
