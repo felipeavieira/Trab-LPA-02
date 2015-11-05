@@ -1,0 +1,6 @@
+5
+filho pai mae
+pai vo1 vo2
+mae vo3 vo4
+vo3 bisa1 bisa2
+bisa2 tata1 tata2

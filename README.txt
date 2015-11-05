@@ -7,6 +7,7 @@ Autores:
 2 Tiago Foloni Tessarolli - Nº USP: 9312794 - GitHub User Name: tiagoftessarolli
 3 Bruna Pereira de Almeida Dell'Avanzi - Nº USP: 9311556
 4 Luís Eduardo Manzoli Elias - Nº USP: 9312752 
+5 Maurício Kubota - N° USP: 9312780 - GitHub User Name: maukbt
 
 1. Ambiente de trabalho e conteúdo
 
@@ -20,7 +21,7 @@ A arquitetura do sistema foi o windows 10 x64.
 
 Linker settings: -static-libgcc -static-libstdc++
 
-1.4. Em todos os programas foram usadas quatro bibliotecas: math.h, string.h, stdio.h e stdlib.
+1.4. Nos programas foram usadas três bibliotecas: string.h, stdio.h e stdlib.
 As bibliotecas estão localizadas na pasta "Bibliotecas (.h)", no repositório do trabalho.
 
 1.5. Alguns exemplos de entrada foram dados, e estão localizados na pasta "Entradas-exemplo (.txt)".
@@ -34,17 +35,13 @@ nas pastas "Códigos-fonte (.c)" e " Executáveis (.exe)", respectivamente.
 Esse programa tem como objetivo armazenar numa Árvore Binária de Busca uma sequencia de números inteiros,
 e permitir a realização das operações: inserção, remoção, busca, impressão em pré ordem, pós ordem e
 em ordem,impressão da árvore em "labelled bracketing".
- 
 
 2.2 Árvore genealógica
-Esse programa tem como objetivo simular uma árvore genealógica usando uma Árvore Binária de Busca, 
-assumindo que cada casal pode ter apenas um filho. nesse programa é possivel imprimir os membros de uma 
-família por geração, imprimir os antepassados de um determinado indivíduo, imprimir a árvore ultilizando 
+Esse programa tem como objetivo simular uma árvore genealógica usando uma Árvore Binária, 
+assumindo que cada casal pode ter apenas um filho. Nesse programa é possivel imprimir os membros de uma 
+família por geração, imprimir os antepassados de um determinado indivíduo, imprimir a árvore utilizando 
 "labelled brackting" e calcular o grau de parentesco entre dois membros da família.
 
 2.3 Conversor de Equação Polonesa
 Esse programa tem como objetivo, dado uma equação em notação polonesa (préfixa), mostrar as equações 
 equivalentes nas notações polonesa reversa (RPN ou pósfixa) e infixa.
-
-
-
