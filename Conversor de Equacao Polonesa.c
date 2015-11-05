@@ -1,38 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct unidade
+struct unidade//Estrutura que sera usada p/ representar um numero como uma lista de char.
 {
     char ch;
     struct undidade * prox;
 };
 
-struct arvore
+struct arvore//Estrutura p/ a arvore.
 {
     struct unidade * c;
     struct arvore * esq;
     struct arvore * dir;
 };
 
-char a;
+char a;//variavel global para manter o mesmo char entre as funcoes.
 
-struct unidade * add_un ()
+struct unidade * add_un ()//funcao que cria uma lista de char para representar um numero ou um operador.
 {
     struct unidade * novo = (struct unidade*)calloc(1,sizeof(struct unidade));
 
-    if (a=='+'||a=='-'||a=='*'||a=='/'||a=='^')
+    if (a=='+'||a=='-'||a=='*'||a=='/'||a=='^')// para o operador, a lista so precisa de uma particao.
     {
         novo->ch=a;
         novo->prox=NULL;
     }
-    else
+    else //se for um numero, sera criada uma lista com o numero de algarismos do numero.
     {
         struct unidade * marcador = novo;
         struct unidade * novo1;
         marcador->ch=a;
         marcador->prox=NULL;
         scanf("%c",&a);
-        while (a!=' '&&a!='\n')
+        while (a!=' '&&a!='\n')//continua a lista ate o proximo espaco.
         {
             novo1=(struct unidade*)calloc(1,sizeof(struct unidade));
             novo1->ch=a;
@@ -45,29 +45,35 @@ struct unidade * add_un ()
     return novo;
 }
 
-int add(struct arvore * root)
+int add(struct arvore * root)//funcao que adiciona novos numeros ou operadores na arvore.
 {
-    int i=0;
-    if (root->esq==NULL)
+    int i=0;//Esse marcador sera muito importante, pois os if's so sao realizados se ele for 0.
+    //Ele nao sera mais 0 quando o char ja tiver sido adicionado.
+    if (root->esq==NULL)//a funcao tenta primeiro adicionar o char a esquerda.
     {
         root->esq=(struct arvore*)calloc(1,sizeof(struct arvore));
         root->esq->c=add_un();
         root->esq->esq=NULL;
         root->esq->dir=NULL;
-        return 1;
+        return 1;//avisa o programa que o char foi adicionado
     }
+    //se a esquerda estiver preenchida por um operador, o programa pula para este ramo.
+    //Se nao, ele tentara a esquerda.
     if (i==0&&(root->esq->c->ch=='+'||root->esq->c->ch=='-'||root->esq->c->ch=='/'||root->esq->c->ch=='*'||root->esq->c->ch=='^'))
     {
         i=add(root->esq);
     }
+    //se a esquerda ja estiver preenchida por um numero, o programa testa a direita.
+    //Se estiver vazia, ele adiciona o char a posicao.
     if (i==0&&root->dir==NULL)
     {
         root->dir=(struct arvore*)calloc(1,sizeof(struct arvore));
         root->dir->c=add_un();
         root->dir->esq=NULL;
         root->dir->dir=NULL;
-        return 1;
+        return 1;//avisa o programa que o char foi adicionado
     }
+    //se for um operador, ele pode pular para ele.
     if(i==0&&(root->dir->c->ch=='+'||root->dir->c->ch=='-'||root->dir->c->ch=='/'||root->dir->c->ch=='*'||root->dir->c->ch=='^'))
     {
         i=add(root->dir);
@@ -75,7 +81,7 @@ int add(struct arvore * root)
     return i;
 }
 
-void print_lista (struct unidade * lista)
+void print_lista (struct unidade * lista)//Imprime a lista, seja numero ou operador.
 {
     while(lista!=NULL)
     {
@@ -84,7 +90,7 @@ void print_lista (struct unidade * lista)
     }
 }
 
-void print_in(struct arvore * root)
+void print_in(struct arvore * root)//impressao infixa, analoga a em ordem.
 {
     if (root==NULL)
         return;
@@ -97,7 +103,7 @@ void print_in(struct arvore * root)
         printf(")");
 }
 
-void print_rpn (struct arvore * root)
+void print_rpn (struct arvore * root)//impressao RPN, analoga a pos-ordem.
 {
     if (root==NULL)
         return;
@@ -107,7 +113,7 @@ void print_rpn (struct arvore * root)
     printf(" ");
 }
 
-void free_lista (struct unidade * lista)
+void free_lista (struct unidade * lista)//funcao que serve para liberar a memoria da lista
 {
     if (lista==NULL)
         return;
@@ -115,7 +121,7 @@ void free_lista (struct unidade * lista)
     free(lista);
 }
 
-void free_all(struct arvore * root)
+void free_all(struct arvore * root)//funcao que libera a memoria da arvore, e chama a funcao de liberar a lista.
 {
     if (root==NULL)
         return;
@@ -125,7 +131,7 @@ void free_all(struct arvore * root)
     free(root);
 }
 
-int menu (struct arvore * root)
+int menu (struct arvore * root)// funcao menu, dara as opcoes do usuario.
 {
     int i;
     printf("\nO que deseja fazer agora?\n1. Imprimir equacao infixa.\n2. Imprimir equacao posfixa (RPN).\n3. Sair.\nSua opcao: ");
@@ -162,20 +168,21 @@ int main ()
 {
     printf("Entre com uma equacao na notacao polonesa:\n");
     scanf("%c",&a);
+    //preenche a raiz da arvore.
     struct arvore * root = (struct arvore * )calloc(1,sizeof(struct arvore));
     root->c=add_un();
     root->esq=NULL;
     root->dir=NULL;
-    while (a!='\n')
+    while (a!='\n')//preenche a arvore
     {
         scanf("%c",&a);
         if (a!=' '&&a!='\n')
             add(root);
     }
     int i = 1;
-    while (i==1)
+    while (i==1)// mantem o menu ate que o usuario queira sair.
     {
-        i=menu(root);
+        i=menu(root);//retorna zero para a saida.
     }
-    free_all(root);
+    free_all(root);//liberacao da memoria alocada.
 }
