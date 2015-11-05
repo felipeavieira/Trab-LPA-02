@@ -134,7 +134,7 @@ int menu ()//funcao que imprime o menu e executa a opcao escolhida
 {
     int i,j,n,a;
     printf("\nO que deseja fazer agora? Digite o numero com sua opcao:\n");
-    printf("1. Adicionar novos numeros.\n2. Remover um item.\n3. Buscar um numero.\n4. Imprimir a arvore.\n5. Sair\nOpcao: ");
+    printf("1. Adicionar novos numeros.\n2. Remover um numero.\n3. Buscar um numero.\n4. Imprimir a arvore.\n5. Sair\nOpcao: ");
     scanf("%d",&i);
     switch (i)//pula para a opcao escolhida.
     {
@@ -153,7 +153,7 @@ int menu ()//funcao que imprime o menu e executa a opcao escolhida
                     scanf("%d",&a);
                     adicionar (a);
                 }
-                printf("Itens adicionados!\n");
+                printf("Numeros adicionados!\n");
                 return 0;
             }
         case 2:
