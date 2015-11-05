@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>//biblioteca necessaria para o uso da funcao strcmp
-#include <math.h>//biblioteca necessaria para o uso da funcao pow
 
 struct lista //estrutura da lista que sera utilizada para obter os individuos por geracao.
 {
@@ -91,7 +90,7 @@ struct lista * list (struct arvore * root)// preenche uma lista que retorna a ar
     last=raizlista;
     do
     {
-        if (first->tree->dir!=NULL)
+        if (first->tree->dir!=NULL)//insere os filhos na lista, se eles existirem
         {
             next2=(struct lista *)calloc(1,sizeof(struct lista));
             next2->tree=first->tree->esq;
@@ -104,9 +103,9 @@ struct lista * list (struct arvore * root)// preenche uma lista que retorna a ar
             last = next2;
         }
         else
-            first=first->prox;
+            first=first->prox;//se nao houverem filhos, ele segue a lista.
     }
-    while (first->prox!=NULL);
+    while (first!=NULL);
     return raizlista;//retorna o primeiro da lista.
 }
 
@@ -119,10 +118,9 @@ void print_ant(struct arvore * root)//impressao analoga ao pre ordem
     print_ant(root->dir);
 }
 
-void print_ger(struct lista * lista, double i)// imprime a arvore por geracoes utilizando a lista que ja foi preenchida.
+void print_ger(struct lista * lista, int i)// imprime a arvore por geracoes utilizando a lista que ja foi preenchida.
 {
-    double j;
-    for (j=0;j<pow(2,i);j++)//sabemos quantas vezes repetir pois cada geracao tem 2^n individuos, com n = geracao e raiz tem n=0
+    while (lista!=NULL&&lista->tree->geracao==i)//Imprime enquanto a geracao for i, sendo i=0 na raiz.
     {
         if (lista==NULL)
             return;
@@ -132,7 +130,7 @@ void print_ger(struct lista * lista, double i)// imprime a arvore por geracoes u
     i++;
     printf("\n");
     if (lista!=NULL)
-        print_ger(lista,j);
+        print_ger(lista,i);
 }
 
 void print_col(struct arvore * root)//impressao em labelled bracketing
@@ -226,7 +224,7 @@ int menu(struct arvore * root, struct lista * lista)//imprime o menu e executa a
                 }
             case 2:
                 {
-                    double k=0;
+                    int k=0;
                     printf("\n");
                     print_ger(lista,k);
                     printf("\n");

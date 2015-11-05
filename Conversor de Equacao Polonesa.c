@@ -166,7 +166,7 @@ int menu (struct arvore * root)// funcao menu, dara as opcoes do usuario.
 
 int main ()
 {
-    printf("Entre com uma equacao na notacao polonesa:\n");
+    printf("Entre com uma equacao na notacao polonesa. Coloque espaços entre os numeros e os operadores.\n");
     scanf("%c",&a);
     //preenche a raiz da arvore.
     struct arvore * root = (struct arvore * )calloc(1,sizeof(struct arvore));
