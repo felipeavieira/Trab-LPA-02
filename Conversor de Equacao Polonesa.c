@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 struct unidade
 {
     char ch;
@@ -106,6 +107,57 @@ void print_rpn (struct arvore * root)
     printf(" ");
 }
 
+void free_lista (struct unidade * lista)
+{
+    if (lista==NULL)
+        return;
+    free_lista(lista->prox);
+    free(lista);
+}
+
+void free_all(struct arvore * root)
+{
+    if (root==NULL)
+        return;
+    free_all(root->esq);
+    free_all(root->dir);
+    free_lista(root->c);
+    free(root);
+}
+
+int menu (struct arvore * root)
+{
+    int i;
+    printf("\nO que deseja fazer agora?\n1. Imprimir equacao infixa.\n2. Imprimir equacao posfixa (RPN).\n3. Sair.\nSua opcao: ");
+    scanf("%d",&i);
+    switch(i)
+    {
+    case 1:
+        {
+            printf("\nA equacao na notacao infixa eh:\n");
+            print_in(root);
+            printf("\n");
+            return 1;
+        }
+    case 2:
+        {
+            printf("\nA equacao na notacao posfixa (RPN) eh:\n");
+            print_rpn(root);
+            printf("\n");
+            return 1;
+        }
+    case 3:
+        {
+            return 0;
+        }
+    default:
+        {
+            printf("Opcao invalida. Tente novamente.\n");
+            return 1;
+        }
+    }
+}
+
 int main ()
 {
     printf("Entre com uma equacao na notacao polonesa:\n");
@@ -120,9 +172,10 @@ int main ()
         if (a!=' '&&a!='\n')
             add(root);
     }
-    printf("\nA equacao na notacao infixa eh:\n");
-    print_in(root);
-    printf("\nA equacao na notacao posfixa (RPN) eh:\n");
-    print_rpn(root);
-
+    int i = 1;
+    while (i==1)
+    {
+        i=menu(root);
+    }
+    free_all(root);
 }
