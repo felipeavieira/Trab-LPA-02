@@ -43,5 +43,5 @@ família por geração, imprimir os antepassados de um determinado indivíduo, impri
 "labelled brackting" e calcular o grau de parentesco entre dois membros da família.
 
 2.3 Conversor de Equação Polonesa
-Esse programa tem como objetivo, dado uma equação em notação polonesa (préfixa), mostrar as equações 
-equivalentes nas notações polonesa reversa (RPN ou pósfixa) e infixa.
+Esse programa tem como objetivo, dado uma equação em notação polonesa (prefixa), mostrar as equações 
+equivalentes nas notações polonesa reversa (RPN ou posfixa) e infixa.
